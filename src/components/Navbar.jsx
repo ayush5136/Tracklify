@@ -24,7 +24,9 @@ export default function NavBar() {
           {/* Navigation Links */}
           <div className="hidden md:flex items-center space-x-1">
             {navLinks.map((link) => {
-              const isActive = location.pathname === link.path;
+              const isActive = 
+                location.pathname === link.path || 
+                (link.path === '/admin' && location.pathname.startsWith('/admin/'));
               return (
                 <Link
                   key={link.name}

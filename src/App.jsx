@@ -12,13 +12,15 @@ import Admin from './pages/Admin/Admin'
 
 export default function App() {
   return (
+   <div className="flex flex-col h-screen ">
     <BrowserRouter>
     <Navbar/>
      <Routes>
       <Route path="/" element={<Home />} />
-      <Route path="/admin" element={<Admin />} />
+      <Route path="/admin/*" element={<Admin />} />
      </Routes>
-     <Footer/>
+     
     </BrowserRouter>
+    </div>
   )
 }
