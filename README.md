@@ -1,16 +1,72 @@
-# React + Vite
+# Tracklify
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Tracklify is the ultimate platform for teams to manage projects, track time, and boost productivity with AI-powered insights and real-time collaboration. It also features a comprehensive Admin Dashboard to manage categories, products, and orders efficiently.
 
-Currently, two official plugins are available:
+## Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+- **Modern Landing Page**: A beautiful, responsive home page designed to convert users.
+- **Admin Dashboard**:
+  - **Category Management**: Easily organize items.
+  - **Product Management**: Track and manage your inventory.
+  - **Order Tracking**: Keep an eye on incoming and fulfilled orders.
+- **Real-time Tracking**: Monitor project progress as it happens with live updates.
+- **Smart Analytics**: Deep insights into team performance and project bottlenecks.
+- **Team Collaboration**: Built-in tools to seamlessly work together and break down silos.
 
-## React Compiler
+## Technology Stack
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+This project is built using modern web development tools:
 
-## Expanding the ESLint configuration
+- **Framework**: [React](https://react.dev/) (v19)
+- **Build Tool**: [Vite](https://vitejs.dev/)
+- **Styling**: [Tailwind CSS](https://tailwindcss.com/) (v4)
+- **Routing**: [React Router](https://reactrouter.com/) (v7)
+- **Icons**: [Lucide React](https://lucide.dev/)
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## Getting Started
+
+Follow these steps to set up the project locally.
+
+### Prerequisites
+
+Ensure you have [Node.js](https://nodejs.org/) installed on your machine.
+
+### Installation
+
+1. Clone the repository and navigate into the project directory.
+2. Install the dependencies:
+   ```bash
+   npm install
+   ```
+
+### Running the Application Locally
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`.
+
+### Building for Production
+
+To create a production build, run:
+
+```bash
+npm run build
+```
+
+You can preview the built application with:
+
+```bash
+npm run preview
+```
+
+## Contributing
+
+1. Fork the repository
+2. Create your feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add some amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request

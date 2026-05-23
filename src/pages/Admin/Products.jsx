@@ -1,10 +1,10 @@
 import React, { useState } from "react";
+import { EllipsisVertical } from "lucide-react";
 
 export default function Products({
   products,
   setProducts,
-  categories,
-  setCategories,
+  categories
 }) {
   const [isModalOpen, setIsModalOpen] = useState(false);
   const [formData, setFormData] = useState({
@@ -24,12 +24,21 @@ export default function Products({
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    const newProduct = {
-      id: Date.now(),
-      ...formData,
-      price: parseFloat(formData.price) || 0,
-    };
-    setProducts([...products, newProduct]);
+    if(isEditingPanel){
+      const updatedProducts = products.map((product) => 
+        product.id === isEditingPanel.id ? formData : product
+      );
+      setProducts(updatedProducts);
+      setIsEditingPanel(null);
+      setOpenOptionId(null);
+    }else{
+      const newProduct = {
+        id: Date.now(),
+        ...formData,
+        price: parseFloat(formData.price) || 0,
+      };
+      setProducts([...products, newProduct]);
+    }
     setIsModalOpen(false);
     setFormData({
       name: "",
@@ -38,6 +47,14 @@ export default function Products({
       imageUrl: "",
       description: "",
     });
+  };
+  const [isEditingPanel, setIsEditingPanel] = useState(null);
+  const [openOptionId, setOpenOptionId] = useState(null);
+  
+  const handleDelete = (id) => {
+    const newProducts = products.filter((product) => product.id !== id);
+    setProducts(newProducts);
+    setOpenOptionId(null);
   };
 
   return (
@@ -74,8 +91,33 @@ export default function Products({
           {products.map((product) => (
             <div
               key={product.id}
-              className="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col"
+              className="relative bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden hover:shadow-md transition-shadow flex flex-col"
             >
+              <button
+                onClick={() => setOpenOptionId(product.id=== openOptionId ? null : product.id)}
+                className="absolute top-1 right-1 text-slate-400 hover:text-slate-600 transition-colors p-2 hover:bg-slate-100 rounded-full"
+              >
+                <EllipsisVertical />
+              </button>
+              {openOptionId === product.id && (
+                <div className="absolute top-11 right-0 z-10 bg-slate-100 rounded-lg shadow-lg ">
+                  <div className="py-1">
+                    <button
+                    onClick={() => {setIsEditingPanel(product);
+                      setIsModalOpen(true);
+                      setFormData(product);
+                    }}
+                    className="block px-4 py-2 text-sm text-slate-700 hover:bg-slate-400 hover:rounded hover:cursor-pointer w-full text-left transition-colors duration-300">
+                      Edit
+                    </button>
+                    <button
+                    onClick={() => handleDelete(product.id)}
+                     className="block px-4 py-2 text-sm text-slate-700 hover:bg-red-400 hover:rounded hover:cursor-pointer  w-full text-left transition-colors duration-300">
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              )}
               <div className="aspect-4/3 bg-white flex items-center justify-center overflow-hidden">
                 {product.imageUrl ? (
                   <img
@@ -105,14 +147,14 @@ export default function Products({
                 </div>
                 {product.category ? (
                   <span className="inline-block px-2.5 py-1 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg mb-3 self-start">
-                    {product.category }
+                    {product.category}
                   </span>
-                ) :(
+                ) : (
                   <span className="inline-block px-1 py-2 bg-slate-100 text-slate-600 text-xs font-medium rounded-lg mb-3 self-start">
                     Category Not Added
                   </span>
                 )}
-                <p className="text-sm text-slate-500 line-clamp-2 mt-auto">
+                <p className="text-sm text-slate-500 line-clamp-2 mt-auto truncate">
                   {product.description || "No description provided."}
                 </p>
               </div>
@@ -128,7 +170,7 @@ export default function Products({
           <div className="bg-white rounded-2xl shadow-xl w-full max-w-lg overflow-hidden flex flex-col max-h-[90vh]">
             <div className="px-6 py-4 border-b border-slate-100 flex justify-between items-center bg-slate-50/50">
               <h2 className="text-xl font-bold text-slate-800">
-                Add New Product
+                {isEditingPanel ? "Edit Product" : "Add New Product"}
               </h2>
               <button
                 onClick={() => setIsModalOpen(false)}
@@ -243,7 +285,7 @@ export default function Products({
                 form="add-product-form"
                 className="px-5 py-2.5 rounded-xl font-medium text-white bg-blue-600 hover:bg-blue-700 shadow-lg shadow-blue-900/10 transition-colors"
               >
-                Add Product
+                {isEditingPanel ?   "Save Changes" : "Add Product"}
               </button>
             </div>
           </div>
